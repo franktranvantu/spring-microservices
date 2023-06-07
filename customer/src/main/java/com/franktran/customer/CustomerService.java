@@ -3,7 +3,7 @@ package com.franktran.customer;
 import org.springframework.stereotype.Service;
 
 @Service
-public record CustomerService() {
+public record CustomerService(CustomerRepository repository) {
   public void registerCustomer(CustomerRegistrationRequest request) {
     Customer customer = Customer
         .builder()
@@ -15,5 +15,6 @@ public record CustomerService() {
     // Check if email is valid
     // Check if email is taken
     // Store customer in DB
+    repository.save(customer);
   }
 }
