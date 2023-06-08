@@ -1,13 +1,16 @@
 package com.franktran.customer;
 
 import com.franktran.clients.fraud.FraudClient;
+import com.franktran.clients.notification.NotificationClient;
 import com.franktran.domain.FraudCheckResponse;
+import com.franktran.domain.NotificationRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 public record CustomerService(
     CustomerRepository repository,
-    FraudClient fraudClient) {
+    FraudClient fraudClient,
+    NotificationClient notificationClient) {
   public void registerCustomer(CustomerRegistrationRequest request) {
     Customer customer = Customer
         .builder()
@@ -24,5 +27,12 @@ public record CustomerService(
     if (fraudCheckResponse.isFraudster()) {
       throw new IllegalStateException("Customer is fraudster");
     }
+    NotificationRequest notificationRequest = new NotificationRequest(
+        customer.getId(),
+        customer.getEmail(),
+        String.format("Hi %s, welcome to Spring microservices...",
+            customer.getFirstName())
+    );
+    notificationClient.sendNotification(notificationRequest);
   }
 }
