@@ -1,4 +1,4 @@
 package com.franktran.domain;
 
-public record FraudCheckResponse(Boolean isFraudster) {
+public record  FraudCheckResponse(Boolean isFraudster) {
 }

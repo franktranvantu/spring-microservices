@@ -33,7 +33,7 @@
 
         <dependency>
             <groupId>com.franktran</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>clients</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
