@@ -1,5 +1,6 @@
 package com.franktran.customer;
 
+import com.franktran.amqp.RabbitMQProducer;
 import com.franktran.clients.fraud.FraudClient;
 import com.franktran.clients.notification.NotificationClient;
 import com.franktran.domain.FraudCheckResponse;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 public record CustomerService(
     CustomerRepository repository,
     FraudClient fraudClient,
-    NotificationClient notificationClient) {
+    NotificationClient notificationClient,
+    RabbitMQProducer producer
+    ) {
   public void registerCustomer(CustomerRegistrationRequest request) {
     Customer customer = Customer
         .builder()
@@ -33,6 +36,6 @@ public record CustomerService(
         String.format("Hi %s, welcome to Spring microservices...",
             customer.getFirstName())
     );
-    notificationClient.sendNotification(notificationRequest);
+    producer.publish("internal.exchange", "internal.notification.routing-key", notificationRequest);
   }
 }
