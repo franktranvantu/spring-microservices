@@ -1,13 +1,13 @@
 server:
-  port: 8082
+  port: 8080
 
 spring:
   application:
-    name: notification
+    name: customer
   datasource:
     username: 'root'
     password: 'password'
-    url: jdbc:postgresql://postgres:5432/notification
+    url: jdbc:postgresql://postgres:5432/customer
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -27,11 +27,3 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queues:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key

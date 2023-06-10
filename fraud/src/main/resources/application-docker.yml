@@ -1,13 +1,13 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   application:
-    name: notification
+    name: fraud
   datasource:
     username: 'root'
     password: 'password'
-    url: jdbc:postgresql://postgres:5432/notification
+    url: jdbc:postgresql://postgres:5432/fraud
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -18,8 +18,6 @@ spring:
     show-sql: true
   zipkin:
     base-url: http://zipkin:9411
-  rabbitmq:
-    addresses: rabbitmq:5672
 
 eureka:
   client:
@@ -27,11 +25,3 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queues:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key
