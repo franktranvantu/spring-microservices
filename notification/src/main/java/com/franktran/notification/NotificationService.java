@@ -12,7 +12,7 @@ public record NotificationService(NotificationRepository repository) {
         Notification.builder()
             .toCustomerId(notificationRequest.toCustomerId())
             .toCustomerEmail(notificationRequest.toCustomerName())
-            .sender("Amigoscode")
+            .sender("Frank Tran")
             .message(notificationRequest.message())
             .sentAt(LocalDateTime.now())
             .build()
